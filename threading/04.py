@@ -6,10 +6,11 @@ start=time.perf_counter()
 def do_somthing(seconds):
     print(f"sleeping {seconds} sec")
     time.sleep(seconds)
-    return "done sleeping"
+    return f"done sleeping {seconds}"
 
 with concurrent.futures.ThreadPoolExecutor() as executor:
-    result=[ executor.submit(do_somthing,1) for _ in range(10)]
+    secs=[5,3,2,4,1]
+    result=[ executor.submit(do_somthing,sec) for sec in secs]
     # for res in result:
     #     print(res.result())
     for f in concurrent.futures.as_completed(result):
